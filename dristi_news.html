@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dristi NEWS</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome CDN -->
+    <script
+      src="https://kit.fontawesome.com/24f74c1771.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+
+    <style>
+      .news-title {
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1;
+        font-weight: 600;
+        position: relative;
+        border-radius: 0 14px 0 0;
+        margin-top: 10px;
+      }
+
+      .news-title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 5px;
+        top: 5px;
+        background: #ebebeb;
+      }
+
+      .news-title span {
+        padding: 1px 22px 0 23px;
+        display: inline-block;
+        color: #fff;
+        position: relative;
+        line-height: 33px;
+        font-weight: 600;
+        background: #03305c;
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .news-title span::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        z-index: 5;
+        border-top: 36px solid transparent;
+        border-left: 31px solid #03305c;
+        right: -33px;
+        box-shadow: -5px 0 0 #03305c;
+      }
+
+      .news-title span::after {
+        right: -44px;
+        content: "";
+        top: 0;
+        position: absolute;
+        z-index: 2;
+        border-top: 33px solid transparent;
+        border-left: 33px solid #fff;
+        box-shadow: -5px 0 0 #fff;
+      }
+
+      .news-title a {
+        float: right;
+        font-size: 18px;
+        padding: 4px 5px;
+        margin-right: 10px;
+        font-weight: 700;
+        line-height: 27px;
+        background: #03305c;
+        position: relative;
+        color: #fff;
+        margin-top: 0px;
+      }
+
+      /* 📱 Media Query: Mobile */
+      @media (max-width: 480px) {
+        .news-title {
+          font-size: 14px;
+        }
+
+        .news-title span {
+          font-size: 16px;
+          line-height: 28px;
+          padding: 1px 16px 0 16px;
+        }
+
+        .news-title a {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-800">
+    <header class="p-2 bg-white">
+      <!-- Top section: logo and ad -->
+      <div
+        class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4"
+      >
+        <a
+          href="#"
+          class="w-full md:w-auto bg-[#d3222d] flex items-center justify-center md:block"
+        >
+          <img
+            src="https://www.drishtinews.com/wp-content/themes/drishtinews/img/drishitinews.png"
+            alt="Dristi NEWS Logo"
+            class="h-24 w-auto"
+          />
+        </a>
+        <div class="flex items-center justify-center">
+          <img
+            src="https://www.drishtinews.com/wp-content/uploads/2024/10/NIMB-Open-Ended-Mutual-Fund.gif"
+            alt="Advertisement"
+            class="h-24 w-full md:w-auto"
+          />
+        </div>
+      </div>
+
+      <!-- Navigation Section -->
+      <nav x-data="{ open: false }" class="bg-blue-900 mt-4">
+        <div class="max-w-7xl mx-auto flex items-stretch justify-between">
+          <!-- Desktop Nav -->
+          <ul class="flex font-medium space-x-4 items-stretch">
+            <template
+              x-for="(item, index) in ['गृहपृष्ठ','समाचार','विचार','अर्थ','कला','साहित्य','जीवनशैली','खेलकुद','अन्तर्राष्ट्रिय']"
+              :key="item"
+            >
+              <li
+                :class="{
+                  'block': index === 0,
+                  'hidden': index !== 0,
+                  'lg:inline-flex': true
+                }"
+                class="relative group px-4 py-2 h-full items-center"
+              >
+                <a
+                  href="#"
+                  class="relative z-10 text-white h-full flex items-center"
+                >
+                  <span x-text="item"></span>
+                </a>
+                <span
+                  class="absolute inset-0 bg-blue-700 transition-all duration-300 ease-in-out origin-top scale-y-0 group-hover:scale-y-100 z-0"
+                ></span>
+              </li>
+            </template>
+          </ul>
+
+          <!-- Right-side Info and Actions -->
+          <div class="flex items-stretch space-x-1">
+            <div
+              class="text-white text-sm bg-blue-800 px-4 hidden sm:flex items-center h-full"
+            >
+              १९ असार २०८२, बिहिबार
+            </div>
+            <div
+              class="text-white bg-blue-700 px-4 hidden sm:flex items-center h-full"
+            >
+              <i class="fas fa-calendar"></i>
+            </div>
+            <div
+              class="bg-red-600 text-white px-4 flex items-center cursor-pointer font-medium h-full"
+            >
+              <span>E-paper</span>
+            </div>
+            <!-- Mobile Menu Toggle -->
+            <button
+              class="lg:hidden text-white px-4 flex items-center h-full"
+              @click="open = !open"
+              aria-label="Toggle menu"
+            >
+              <i x-show="!open" class="fas fa-bars text-xl"></i>
+              <i x-show="open" class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div
+          x-show="open"
+          x-transition:enter="transition ease-out duration-400"
+          x-transition:enter-start="opacity-0 max-h-0 overflow-hidden"
+          x-transition:enter-end="opacity-100 max-h-[1000px] overflow-hidden"
+          x-transition:leave="transition ease-in duration-300"
+          x-transition:leave-start="opacity-100 max-h-[1000px] overflow-hidden"
+          x-transition:leave-end="opacity-0 max-h-0 overflow-hidden"
+          class="lg:hidden px-4 pt-2 pb-4 space-y-2"
+          @click.away="open = false"
+          x-cloak
+        >
+          <template
+            x-for="item in ['समाचार','विचार','अर्थ','कला','साहित्य','जीवनशैली','खेलकुद','अन्तर्राष्ट्रिय']"
+            :key="item"
+          >
+            <a
+              href="#"
+              class="block text-white px-2 py-2 rounded hover:bg-blue-700"
+              x-text="item"
+            ></a>
+          </template>
+        </div>
+      </nav>
+    </header>
+
+    <main class="p-2">
+      <div class="max-w-3xl lg:max-w-7xl mx-auto">
+        <div>
+          <img
+            src="https://www.drishtinews.com/wp-content/uploads/2025/06/Sivam-1.gif"
+            alt="ads"
+            class="w-full h-auto"
+          />
+        </div>
+
+        <div class="first-breaking-news mt-4 px-4 sm:px-6 md:px-8 lg:px-0">
+          <div class="pb-2 text-center border-b-2 border-gray-200">
+            <a href="#">
+              <h1
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold hover:text-blue-800 leading-snug sm:leading-normal py-4 sm:py-6 transition-colors duration-300"
+              >
+                डोल्पामा काल्पनिक विद्यालयको नाममा ७ लाख ६० हजार हिनामिना
+              </h1>
+            </a>
+          </div>
+
+          <div class="pb-2 mt-6 text-center border-b-2 border-gray-200">
+            <a href="#">
+              <h1
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold hover:text-blue-800 leading-snug sm:leading-normal py-4 sm:py-6 transition-colors duration-300"
+              >
+                डोल्पामा काल्पनिक विद्यालयको नाममा ७ लाख ६० हजार हिनामिना
+              </h1>
+            </a>
+          </div>
+        </div>
+
+        <div class="second-breaking-news mt-6 px-4 sm:px-6 md:px-8 lg:px-0">
+          <div class="py-6 mt-6 text-center border-b-2 border-gray-200">
+            <a href="#">
+              <h1
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold hover:text-blue-800 leading-snug sm:leading-normal transition-colors duration-300"
+              >
+                डोल्पामा काल्पनिक विद्यालयको नाममा ७ लाख ६० हजार हिनामिना
+              </h1>
+
+              <div
+                class="mt-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-5 text-sm sm:text-base text-gray-600"
+              >
+                <div class="Author flex items-center">
+                  <i class="fas fa-user mr-2 text-gray-700"></i>
+                  <span class="font-semibold">दृष्टि संवाददाता</span>
+                </div>
+                <div class="publication-date">
+                  <span>८ मिनेट अगाडि</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="py-6 mt-6 text-center border-b-2 border-gray-200">
+            <a href="#">
+              <h1
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold hover:text-blue-800 leading-snug sm:leading-normal transition-colors duration-300"
+              >
+                डोल्पामा काल्पनिक विद्यालयको नाममा ७ लाख ६० हजार हिनामिना
+              </h1>
+
+              <div
+                class="mt-4 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-5 text-sm sm:text-base text-gray-600"
+              >
+                <div class="Author flex items-center">
+                  <i class="fas fa-user mr-2 text-gray-700"></i>
+                  <span class="font-semibold">दृष्टि संवाददाता</span>
+                </div>
+                <div class="publication-date">
+                  <span>८ मिनेट अगाडि</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="p-4">
+          <img
+            src="https://www.drishtinews.com/wp-content/uploads/2024/09/Laxmi-sunrise-TVc_-250x250px-3.gif"
+            alt="ads"
+            class="w-full h-auto"
+          />
+        </div>
+
+        <div class="p-4 shadow-lg bg-white">
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-9 gap-4">
+            <div class="col-span-full sm:col-span-7">
+              <div class="mb-2 news-title col-span-7">
+                <span>
+                  <!-- <i class="fas fa-bars mr-2 mt-2"></i> -->
+                  <a href="#">विचार</a>
+                </span>
+                <a href="#">
+                  <!-- <i class="fas fa-plus mr-2"></i> -->
+                  थप समाचार
+                </a>
+              </div>
+              <div class="grid grid-cols-7 gap-4 col-span-full sm:col-span-7">
+                <div class="col-span-full sm:col-span-4">
+                  <a href="#">
+                    <img
+                      src="https://www.drishtinews.com/wp-content/uploads/2025/07/lumbini-400x220.jpg"
+                      alt="News"
+                      class="w-full aspect-video"
+                    />
+                    <h3
+                      class="text-2xl font-semibold mt-2 hover:text-blue-600 text-center"
+                    >
+                      एमाले नेताहरूलाई विधान महाधिवेशनमा केन्द्रित हुन निर्देशन
+                    </h3>
+                  </a>
+
+                  <div class="mt-6 space-y-4">
+                    <a href="#" class="grid grid-cols-7 gap-2">
+                      <img
+                        src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                        alt="Article Thumbnail"
+                        class="col-span-2 w-full aspect-square object-cover"
+                      />
+                      <div class="col-span-5">
+                        <h4 class="text-gray-700 text-lg hover:text-blue-500">
+                          शालीन पोखरेलको आत्महत्या दुरुत्साहनमा शिक्षकले पाए
+                          सफाइ
+                        </h4>
+                        <p class="text-gray-600 text-sm">२ घण्टा अगाडि</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-span-full sm:col-span-3 space-y-4">
+                  <a href="#" class="grid grid-cols-7 sm:grid-cols-5 gap-2">
+                    <img
+                      src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                      alt="Article Thumbnail"
+                      class="col-span-2 w-full aspect-square object-cover"
+                    />
+                    <div class="col-span-5 sm:col-span-3">
+                      <h4 class="text-gray-700 text-lg hover:text-blue-500">
+                        शालीन पोखरेलको आत्महत्या दुरुत्साहनमा शिक्षकले पाए सफाइ
+                      </h4>
+                      <p class="text-gray-600 text-sm">२ घण्टा अगाडि</p>
+                    </div>
+                  </a>
+
+                  <a href="#" class="grid grid-cols-7 sm:grid-cols-5 gap-2">
+                    <img
+                      src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                      alt="Article Thumbnail"
+                      class="col-span-2 w-full aspect-square object-cover"
+                    />
+                    <div class="col-span-5 sm:col-span-3">
+                      <h4 class="text-gray-700 text-lg hover:text-blue-500">
+                        शालीन पोखरेलको आत्महत्या दुरुत्साहनमा शिक्षकले पाए सफाइ
+                      </h4>
+                      <p class="text-gray-600 text-sm">२ घण्टा अगाडि</p>
+                    </div>
+                  </a>
+
+                  <a href="#" class="grid grid-cols-7 sm:grid-cols-5 gap-2">
+                    <img
+                      src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                      alt="Article Thumbnail"
+                      class="col-span-2 w-full aspect-square object-cover"
+                    />
+                    <div class="col-span-5 sm:col-span-3">
+                      <h4 class="text-gray-700 text-lg hover:text-blue-500">
+                        शालीन पोखरेलको आत्महत्या दुरुत्साहनमा शिक्षकले पाए सफाइ
+                      </h4>
+                      <p class="text-gray-600 text-sm">२ घण्टा अगाडि</p>
+                    </div>
+                  </a>
+
+                  <a href="#" class="grid grid-cols-7 sm:grid-cols-5 gap-2">
+                    <img
+                      src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                      alt="Article Thumbnail"
+                      class="col-span-2 w-full aspect-square object-cover"
+                    />
+                    <div class="col-span-5 sm:col-span-3">
+                      <h4 class="text-gray-700 text-lg hover:text-blue-500">
+                        शालीन पोखरेलको आत्महत्या दुरुत्साहनमा शिक्षकले पाए सफाइ
+                      </h4>
+                      <p class="text-gray-600 text-sm">२ घण्टा अगाडि</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-span-2 lg:block hidden">
+              <div class="mb-4 mt-3 group">
+                <h3
+                  class="text-red-600 text-lg font-semibold ml-4 mb-2 group-hover:text-blue-800"
+                >
+                  ताजा
+                </h3>
+
+                <div class="w-full bg-gray-100 h-2 rounded-full">
+                  <div
+                    class="bg-red-600 group-hover:bg-blue-800 h-2 rounded-b-full"
+                    style="width: 40%"
+                  ></div>
+                </div>
+              </div>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    असनको ऐतिहासिक ‘इटाचापा’ पुनःनिर्माण
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    एमाले नेताहरूलाई विधान महाधिवेशनमा केन्द्रित हुन निर्देशन
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    शालीन पोखरेलको आत्महत्या दुरुत्साहनमा शिक्षकले पाए सफाइ
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    कर वृद्धिको बाबजुद अमेरिकी रोजगारीको दरमा वृद्धि
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    प्रधानमन्त्रीद्वारा स्पेनको प्रादो राष्ट्रिय सङ्ग्रहालयको
+                    अवलोकन
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    एभरेष्ट बैङ्कको १३३औँ शाखा बर्दिबासमा विस्तार
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    बाफिया फेरबदलमा विनोद चौधरीको स्वार्थ, संसदबाटै नीतिगत
+                    सेटिङको खेल !
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    वित्त नीतिको स्वेच्छाचारिताले गाँजेको मौद्रिक क्षेत्र
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    उपनिर्वाचन उम्मेदवारबारे रास्वपाले के निर्णय गर्‍यो ?
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    सुदूरपश्चिमका वनमन्त्री रामेश्वर चौधरी बर्खास्त
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block text-gray-800 hover:text-blue-700 no-underline"
+                  >
+                    विनोद चौधरीलाई दिनेश कोइरालाको जवाफ-‘चन्दा दिएकै आधारमा नेता
+                    मान्न सकिन्न’
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4">
+          <img
+            src="https://www.drishtinews.com/wp-content/uploads/2024/09/1000-x-100.gif"
+            alt="ads"
+            class="w-full h-auto"
+          />
+        </div>
+
+        <div id="video-section" class="pt-8 pb-4 px-4 bg-gray-800">
+          <div class="relative py-2">
+            <div class="w-full min-h-[2px] bg-white"></div>
+            <div
+              class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-4 py-2 bg-gray-800 text-white font-semibold"
+            >
+              दृष्टि मल्टिमिडिया
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 mt-4">
+            <!-- Left side thumbnails: hidden on small screens -->
+            <div class="hidden md:flex flex-col space-y-4 col-span-1">
+              <div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2025/06/Prakash-Jwala-Pratishodh-ka-Aadhar-ma-Madhav-Nepal-lai-Fasauna-Khojyo-YT-Thumb-400x220.jpg"
+                  alt="ads"
+                  class="w-full aspect-video rounded"
+                />
+                <div class="mt-2">
+                  <h4
+                    class="text-gray-100 font-semibold hover:text-blue-400 transition-colors"
+                  >
+                    प्रकाश ज्वाला भन्छन्- प्रतिशोधका आधारमा माधव नेपाललाई फसाउन
+                    खोजियो (भिडियो)
+                  </h4>
+                </div>
+              </div>
+
+              <div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2025/06/Raju-Pandey-Returns-after-15-Days-YT-Thumb-400x220.jpg"
+                  alt="ads"
+                  class="w-full aspect-video rounded"
+                />
+                <div class="mt-2">
+                  <h4
+                    class="text-gray-100 font-semibold hover:text-blue-400 transition-colors"
+                  >
+                    कार्यभार सम्हालेपछि राजुनाथ पाण्डेले के भने ?
+                  </h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- Main video iframe: always visible, full width on small -->
+            <div class="col-span-1 lg:col-span-3">
+              <iframe
+                width="100%"
+                height="auto"
+                src="https://www.youtube.com/embed/EPPQWZNDFY8?feature=oembed"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                class="aspect-video rounded"
+              ></iframe>
+            </div>
+
+            <!-- Right side thumbnails: hidden on small screens -->
+            <div class="hidden md:flex flex-col space-y-4 col-span-1">
+              <div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2025/06/RSP-Mathi-Grihamantri-ko-Aarop-YT-Thumb-400x220.jpg"
+                  alt="ads"
+                  class="w-full aspect-video rounded"
+                />
+                <div class="mt-2">
+                  <h4
+                    class="text-gray-100 font-semibold hover:text-blue-400 transition-colors"
+                  >
+                    गृहमन्त्री रमेश लेखकको रवि र रास्वपामाथि यस्तोसम्म आरोप
+                    (भिडियो)
+                  </h4>
+                </div>
+              </div>
+
+              <div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2025/06/Rajendra-Pandey-about-Madhav-Nepal-Muddha-Darta-YT-Thumb-400x220.jpg"
+                  alt="ads"
+                  class="w-full aspect-video rounded"
+                />
+                <div class="mt-2">
+                  <h4
+                    class="text-gray-100 font-semibold hover:text-blue-400 transition-colors"
+                  >
+                    राजेन्द्र पाण्डे भन्छन्- माधव नेपालविरुद्ध राजनीतिक
+                    पूवाग्रहका आधारमा मुद्दा लगाइयो (भिडियो)
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4">
+          <img
+            src="https://www.drishtinews.com/wp-content/uploads/2024/09/Laxmi-sunrise-TVc_-250x250px-3.gif"
+            alt="ads"
+            class="w-full h-auto"
+          />
+        </div>
+
+        <div id="province-section" class="pt-8 pb-4 px-4 bg-blue-100">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center p-2 max-w-7xl mx-auto"
+          >
+            <h2 class="text-3xl font-semibold mb-4 md:mb-0">प्रदेश समाचार</h2>
+            <ul
+              class="flex flex-wrap justify-center md:justify-start space-x-4 md:space-x-6 text-lg font-medium"
+            >
+              <li><a href="#" class="hover:text-blue-500">कोशी</a></li>
+              <li><a href="#" class="hover:text-blue-500">मधेश</a></li>
+              <li><a href="#" class="hover:text-blue-500">बागमती</a></li>
+              <li><a href="#" class="hover:text-blue-500">गण्डकी</a></li>
+              <li><a href="#" class="hover:text-blue-500">लुम्बिनी</a></li>
+              <li><a href="#" class="hover:text-blue-500">कर्णाली</a></li>
+              <li><a href="#" class="hover:text-blue-500">सुदूरपश्चिम</a></li>
+            </ul>
+          </div>
+
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-7xl mx-auto mt-6"
+          >
+            <!-- First column -->
+            <div>
+              <a href="#" class="block group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2025/07/lumbini-400x220.jpg"
+                  alt="News"
+                  class="w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <h3
+                  class="text-xl font-semibold mt-2 text-center group-hover:text-blue-600 transition-colors"
+                >
+                  लुम्बिनी सरकारबाट बाहिरियो लोसपा
+                </h3>
+              </a>
+
+              <div class="mt-6 space-y-4">
+                <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                  <img
+                    src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                    alt="Article Thumbnail"
+                    class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div class="col-span-3">
+                    <h4
+                      class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                    >
+                      विधेयक थन्क्याएर आराम गर्दै सभामुख
+                    </h4>
+                    <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Second column -->
+            <div class="space-y-6">
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+            </div>
+
+            <!-- Third column -->
+            <div class="space-y-6">
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+
+              <a href="#" class="grid grid-cols-5 gap-2 items-center group">
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2024/01/Devraj.jpg"
+                  alt="Article Thumbnail"
+                  class="col-span-2 w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="col-span-3">
+                  <h4
+                    class="text-gray-700 font-semibold group-hover:text-blue-500 transition-colors"
+                  >
+                    विधेयक थन्क्याएर आराम गर्दै सभामुख
+                  </h4>
+                  <p class="text-gray-600 text-sm mt-1">२ घण्टा अगाडि</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4">
+          <img
+            src="https://www.drishtinews.com/wp-content/uploads/2025/02/1200-x-100-GIF.gif"
+            alt="ads"
+            class="w-full h-auto"
+          />
+        </div>
+
+        <div class="opinion-section">
+          <div class="relative mb-2 news-title">
+            <span>
+              <!-- <i class="fas fa-bars mr-2 mt-2"></i> -->
+              <a href="#">विचार</a>
+            </span>
+            <a href="#">
+              <!-- <i class="fas fa-plus mr-2"></i> -->
+              थप समाचार
+            </a>
+          </div>
+          <div id="splide" class="splide p-6 bg-gray-100">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <!-- Nepali political opinion slides -->
+                <li class="splide__slide flex flex-col items-center p-6">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/68.jpg"
+                    alt="Sita Sharma"
+                    class="w-44 h-44 rounded-full object-cover mb-4"
+                  />
+                  <h3
+                    class="text-xl font-semibold text-gray-800 mb-2 text-center leading-snug"
+                  >
+                    संघीयताको प्रभाव: प्रदेश सरकारहरू सफल भए कि असफल?
+                  </h3>
+                  <p class="text-gray-600 text-sm font-medium italic">
+                    - सिता शर्मा
+                  </p>
+                </li>
+
+                <li class="splide__slide flex flex-col items-center p-6">
+                  <img
+                    src="https://randomuser.me/api/portraits/men/45.jpg"
+                    alt="Ram Koirala"
+                    class="w-44 h-44 rounded-full object-cover mb-4"
+                  />
+                  <h3
+                    class="text-xl font-semibold text-gray-800 mb-2 text-center leading-snug"
+                  >
+                    दलको आन्तरिक लोकतन्त्र: नेतृत्व परिवर्तन सम्भव छ?
+                  </h3>
+                  <p class="text-gray-600 text-sm font-medium italic">
+                    - राम कोइराला
+                  </p>
+                </li>
+
+                <li class="splide__slide flex flex-col items-center p-6">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/21.jpg"
+                    alt="Gita Adhikari"
+                    class="w-44 h-44 rounded-full object-cover mb-4"
+                  />
+                  <h3
+                    class="text-xl font-semibold text-gray-800 mb-2 text-center leading-snug"
+                  >
+                    निर्वाचन प्रणालीमा सुधार किन जरुरी छ?
+                  </h3>
+                  <p class="text-gray-600 text-sm font-medium italic">
+                    - गीता अधिकारी
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-4 p-4 bg-white shadow-lg max-w-7xl mx-auto">
+          <div
+            class="relative mb-4 news-title flex justify-between items-center"
+          >
+            <span class="text-xl font-semibold">
+              <a href="#" class="hover:text-blue-600 transition-colors"
+                >सुरक्षा/ अपराध</a
+              >
+            </span>
+            <a href="#" class="text-blue-600 font-semibold hover:underline"
+              >थप समाचार</a
+            >
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Large featured article spanning 2 columns on md and above -->
+            <a
+              href="#"
+              class="col-span-1 md:col-span-2 relative w-full aspect-video flex items-end duration-300 group"
+            >
+              <div
+                class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 opacity-70 group-hover:opacity-60 transition-opacity"
+              ></div>
+              <img
+                src="https://www.drishtinews.com/wp-content/uploads/2019/07/Goli_1-400x220.jpg"
+                alt="Background"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <div
+                class="relative z-20 p-4 text-white group-hover:text-blue-500 transition-colors"
+              >
+                <h4 class="text-xl font-semibold leading-tight">
+                  धुनषामा सशस्त्र प्रहरी र तस्करबीच झडप, चार राउण्ड हवाई फायर
+                </h4>
+              </div>
+            </a>
+
+            <!-- Right side smaller articles in two columns -->
+            <div class="space-y-5">
+              <a
+                href="#"
+                class="relative w-full aspect-video flex items-end duration-300 group"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 opacity-70 group-hover:opacity-60 transition-opacity"
+                ></div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2019/07/Goli_1-400x220.jpg"
+                  alt="Background"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+                <div
+                  class="relative z-20 p-4 text-white group-hover:text-blue-500 transition-colors"
+                >
+                  <h4 class="leading-tight">
+                    धुनषामा सशस्त्र प्रहरी र तस्करबीच झडप, चार राउण्ड हवाई फायर
+                  </h4>
+                </div>
+              </a>
+
+              <a
+                href="#"
+                class="relative w-full aspect-video flex items-end duration-300 group"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 opacity-70 group-hover:opacity-60 transition-opacity"
+                ></div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2019/07/Goli_1-400x220.jpg"
+                  alt="Background"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+                <div
+                  class="relative z-20 p-4 text-white group-hover:text-blue-500 transition-colors"
+                >
+                  <h4 class="leading-tight">
+                    धुनषामा सशस्त्र प्रहरी र तस्करबीच झडप, चार राउण्ड हवाई फायर
+                  </h4>
+                </div>
+              </a>
+            </div>
+
+            <div class="space-y-5">
+              <a
+                href="#"
+                class="relative w-full aspect-video flex items-end duration-300 group"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 opacity-70 group-hover:opacity-60 transition-opacity"
+                ></div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2019/07/Goli_1-400x220.jpg"
+                  alt="Background"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+                <div
+                  class="relative z-20 p-4 text-white group-hover:text-blue-500 transition-colors"
+                >
+                  <h4 class="leading-tight">
+                    धुनषामा सशस्त्र प्रहरी र तस्करबीच झडप, चार राउण्ड हवाई फायर
+                  </h4>
+                </div>
+              </a>
+
+              <a
+                href="#"
+                class="relative w-full aspect-video flex items-end duration-300 group"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 opacity-70 group-hover:opacity-60 transition-opacity"
+                ></div>
+                <img
+                  src="https://www.drishtinews.com/wp-content/uploads/2019/07/Goli_1-400x220.jpg"
+                  alt="Background"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+                <div
+                  class="relative z-20 p-4 text-white group-hover:text-blue-500 transition-colors"
+                >
+                  <h4 class="leading-tight">
+                    धुनषामा सशस्त्र प्रहरी र तस्करबीच झडप, चार राउण्ड हवाई फायर
+                  </h4>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-[#155a8a] text-white pt-8">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between px-4 space-y-8 md:space-y-0"
+      >
+        <!-- Left Info -->
+        <div class="text-center md:text-left space-y-2 md:w-1/3">
+          <div class="font-bold text-lg">दृष्टि मिडिया प्रा. लि.</div>
+          <div>
+            नक्साल, काठमाडौं, नेपाल<br />
+            सूचना तथा प्रसारण विभाग दर्ता नं.: २४९७/०७३-७४<br />
+            फोन : ०१ ४५७०७२४<br />
+            ईमेल : drishtinews@hotmail.com
+          </div>
+        </div>
+        <!-- Logo Center -->
+        <div class="flex flex-col items-center md:w-1/3">
+          <img
+            src="https://www.drishtinews.com/wp-content/themes/drishtinews/img/drishitinews.png"
+            alt="Drishti News Logo"
+            class="h-20 w-auto mb-2"
+          />
+          <div class="flex space-x-2 mt-2">
+            <a
+              href="https://www.facebook.com"
+              target="_blank"
+              class="w-8 h-8 bg-blue-600 rounded-full inline-block flex items-center justify-center hover:bg-blue-800 transition-colors duration-300"
+            >
+              <i class="fab fa-facebook-f text-white"></i>
+            </a>
+            <a
+              href="https://www.twitter.com"
+              target="_blank"
+              class="w-8 h-8 bg-blue-400 rounded-full inline-block flex items-center justify-center hover:bg-blue-600 transition-colors duration-300"
+            >
+              <i class="fab fa-twitter text-white"></i>
+            </a>
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              class="w-8 h-8 bg-gradient-to-tr from-pink-500 to-yellow-500 rounded-full inline-block flex items-center justify-center hover:from-pink-700 hover:to-yellow-700 transition-colors duration-300"
+            >
+              <i class="fab fa-instagram text-white"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Right Info -->
+        <div class="text-center md:text-right space-y-2 md:w-1/3">
+          <div class="font-bold text-lg">दृष्टिन्युज टीम</div>
+          <div>
+            अध्यक्ष/संचालक : शम्भु लाल श्रेष्ठ<br />
+            कार्यकारी सम्पादक : एमपी सुब्बा<br />
+            व्यवस्थापक : प्रकाश खड्का
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-[#0b2e4a] text-center text-sm text-white mt-6 px-4 py-2 flex flex-col md:flex-row items-center justify-center gap-10"
+      >
+        <span class="block"
+          >&copy; 2025 Drishti News – Nepalese News Portal All Rights
+          Reserved.</span
+        >
+        <span class="block mt-2 md:mt-0">
+          <span class="font-semibold">Designed by :</span>
+          <a
+            href="https://www.tusargautam.com.np"
+            class="text-red-400 hover:underline"
+            target="_blank"
+            rel="noopener"
+            >Tusar Gautam</a
+          >
+        </span>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var splide = new Splide("#splide", {
+          type: "loop",
+          perPage: 4,
+          perMove: 1,
+          gap: "1rem",
+          padding: "1rem",
+          arrows: false, // Disable arrows
+          pagination: true, // Enable dots
+          autoplay: false, // Disable autoplay for static carousel
+          breakpoints: {
+            1600: {
+              perPage: 4,
+            },
+            1200: {
+              perPage: 3,
+            },
+            640: {
+              perPage: 1,
+            },
+          },
+        });
+
+        splide.mount();
+      });
+    </script>
+  </body>
+</html>
